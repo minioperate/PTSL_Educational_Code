@@ -4,7 +4,7 @@ import matplotlib as mpl
 import sys
 
 sys.path.insert(1, 'D://library')
-import diff as df
+from diff import *
 import time_evolution as te
 mpl.style.use("D:\\library\\presentation.mplstyle")
 dx = 0.1
@@ -15,6 +15,7 @@ A = v/dx
 B = D/dx**2
 Nx = 100
 Nt = 1000
+dff = diff('periodic',Nx)
 i_d = int(v*Nt*dt/dx)
 k = 2*np.pi/((Nx)*dx)
 x = np.linspace(0*dx,(Nx-1)*dx,Nx)
@@ -25,10 +26,14 @@ ff[:] = 3*np.sin(k*x)
 ffp = np.zeros(Nx)
 
 def funcfp(f,fp,dx,t,BC,diff_type):
-	for j in range(1,Nx-1):
-		fp[j] = -A*(f[j+1]-f[j-1])/2 + B*(f[j+1]-2*f[j]+f[j-1])
-	fp[0] =  -A*(f[1]-f[Nx-1])/2 + B*(f[1]-2*f[0]+f[Nx-1])
-	fp[Nx-1] =  -A*(f[0]-f[Nx-2])/2 + B*(f[0]-2*f[Nx-1]+f[Nx-2])
+	f_t = np.zeros(len(f))
+	dff.diff(f,f_t,dx,'central')
+	f_tt = np.zeros(len(f))
+	dff.diff(f_t,f_tt,dx,'central')
+	for j in range(Nx):
+		fp[j] = -v*f_t[j] + D*f_tt[j]
+	#fp[0] =  -A*(f[1]-f[Nx-1])/2 + B*(f[1]-2*f[0]+f[Nx-1])
+	#fp[Nx-1] =  -A*(f[0]-f[Nx-2])/2 + B*(f[0]-2*f[Nx-1]+f[Nx-2])
 for i in range(Nt-1):
 	te.RK4(ff,ffp,funcfp,dt,dx,i*dt,BC='',diff_type = '')
 	f[:,i+1] = ff[:]

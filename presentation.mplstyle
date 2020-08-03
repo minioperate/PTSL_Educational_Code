@@ -1,0 +1,16 @@
+axes.titlesize       : 24
+axes.labelsize       : 20
+lines.linewidth      : 3
+lines.markersize     : 12
+xtick.labelsize      : 16
+ytick.labelsize      : 16
+legend.fontsize      : 14
+figure.autolayout    : True
+image.interpolation  : bilinear
+image.cmap           : hot
+image.origin         : lower
+figure.dpi           : 80
+savefig.dpi          : 200
+mathtext.fontset     : cm
+mathtext.rm          : serif
+

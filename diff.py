@@ -45,7 +45,7 @@ class diff(object):
 					#np.int16(coeff[j,i])
 					#print(temp[j],coeff[j,i])
 		#print('coefficient is :',coeff)
-	def diff(self,f,fp,dx,diff_type ):
+	def diff(self,f,fp,dx,diff_type):
 		if(diff_type == 'central'):
 			for i in range(0,len(f)):
 				fp[i]=(-1./60.)*f[self.coeff[0,i]]+(3./20.)*f[self.coeff[1,i]]+(-3./4.)*f[self.coeff[2,i]]+(3./4.)*f[self.coeff[4,i]]+(-3./20.)*f[self.coeff[5,i]]+(1./60.)*f[self.coeff[6,i]]
